@@ -18,16 +18,16 @@ public class KeyController extends KeyAdapter {
 
         Direction direction = snakeController.getDirection();
         int key = e.getKeyCode();
-        if ((key == KeyEvent.VK_LEFT) && (direction != Direction.RIGHT)) {
+        if ((key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) && (direction != Direction.RIGHT)) {
             direction = Direction.LEFT;
         }
-        else if ((key == KeyEvent.VK_RIGHT) && (direction != Direction.LEFT)) {
+        else if ((key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) && (direction != Direction.LEFT)) {
             direction = Direction.RIGHT;
         }
-        else if ((key == KeyEvent.VK_UP) && (direction != Direction.DOWN)) {
+        else if ((key == KeyEvent.VK_UP || key == KeyEvent.VK_W) && (direction != Direction.DOWN)) {
             direction = Direction.UP;
         }
-        else if ((key == KeyEvent.VK_DOWN) && (direction != Direction.UP)) {
+        else if ((key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) && (direction != Direction.UP)) {
             direction = Direction.DOWN;
         }
         snakeController.setDirection(direction);
