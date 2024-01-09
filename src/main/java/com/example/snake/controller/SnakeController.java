@@ -18,10 +18,10 @@ public class SnakeController {
     Snake snake;
     Direction direction;
 
-    private final int START_COORDINATE_X = 100;
-    private final int START_COORDINATE_Y = 100;
-    private final int SNAKE_PART_SIZE_X = 10;
-    private final int SNAKE_PART_SIZE_Y = 10;
+    private final int START_COORDINATE_X = 300;
+    private final int START_COORDINATE_Y = 300;
+    private final int SNAKE_PART_SIZE_X = 30;
+    private final int SNAKE_PART_SIZE_Y = 30;
 
     public void createSnake(int size) {
         snake = new Snake();
@@ -43,8 +43,8 @@ public class SnakeController {
             snakePartList.set(i, snakePart);
         }
 
-        int x = (int)snakePartList.get(0).getRect().getLocation().getX();
-        int y = (int)snakePartList.get(0).getRect().getLocation().getY();
+        int x = (int)snakePartList.getFirst().getRect().getLocation().getX();
+        int y = (int)snakePartList.getFirst().getRect().getLocation().getY();
 
         switch(direction) {
             case UP:
@@ -62,6 +62,6 @@ public class SnakeController {
         }
 
         // move snake head
-        snakePartList.get(0).getRect().setLocation(x, y);
+        snakePartList.getFirst().getRect().setLocation(x, y);
     }
 }
