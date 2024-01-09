@@ -46,8 +46,9 @@ public class GameController {
 
         for (SnakePart snakePart : snakeController.getSnake().getSnakeParts()) {
             g2d.setColor(Color.GREEN);
-            g2d.draw(snakePart.getRect());
             g2d.fill(snakePart.getRect());
+            g2d.setColor(Color.BLUE);
+            g2d.draw(snakePart.getRect());
         }
     }
 
