@@ -16,12 +16,12 @@ public class GameController {
 
     SnakeController snakeController;
     @Autowired
-    KeyController keyController;
+    SnakeController.KeyController keyController;
     GameFrame gameFrame;
 
     boolean isGameStarted = false;
 
-    public GameController (SnakeController snakeController, KeyController keyController) {
+    public GameController (SnakeController snakeController, SnakeController.KeyController keyController) {
         this.snakeController = snakeController;
         this.keyController = keyController;
         gameFrame = new GameFrame(this::draw);

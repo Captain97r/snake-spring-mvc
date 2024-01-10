@@ -1,10 +1,7 @@
 package com.example.snake;
 
 import com.example.snake.controller.GameController;
-import com.example.snake.controller.KeyController;
 import com.example.snake.controller.SnakeController;
-import com.example.snake.model.Food;
-import com.example.snake.view.GameFrame;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +18,7 @@ public class SnakeApplication {
     }
 
     @Bean
-    public GameController gameController(SnakeController snakeController, KeyController keyController) {
+    public GameController gameController(SnakeController snakeController, SnakeController.KeyController keyController) {
         return new GameController(snakeController, keyController);
     }
 
