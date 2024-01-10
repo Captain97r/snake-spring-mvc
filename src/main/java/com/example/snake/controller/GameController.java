@@ -15,7 +15,6 @@ import java.awt.geom.RoundRectangle2D;
 public class GameController {
 
     SnakeController snakeController;
-    @Autowired
     SnakeController.KeyController keyController;
     GameFrame gameFrame;
 
@@ -29,34 +28,19 @@ public class GameController {
     }
 
     public void draw(Graphics2D g2d) {
-//        RoundRectangle2D.Double rs = new RoundRectangle2D.Double(100, 100, 20, 20, 5, 5);
-//        g2d.setColor(Color.GREEN);
-//        g2d.draw(rs);
-//        g2d.fill(rs);
-
+        snakeController.drawSnake(g2d);
 //        drawFood(g2d);
-        drawSnake(g2d);
-    }
-
-    public void drawSnake(Graphics2D g2d) {
-        if (!isGameStarted) {
-            snakeController.createSnake(5);
-            isGameStarted = true;
-        }
-
-        for (SnakePart snakePart : snakeController.getSnake().getSnakeParts()) {
-            g2d.setColor(Color.GREEN);
-            g2d.fill(snakePart.getRect());
-            g2d.setColor(Color.BLUE);
-            g2d.draw(snakePart.getRect());
-        }
     }
 
     @Scheduled(fixedDelay = 1000)
     void updateFrame() {
 
-        snakeController.moveSnake();
+        if (!isGameStarted) {
+            snakeController.createSnake(5);
+            isGameStarted = true;
+        }
 
+        snakeController.moveSnake();
         gameFrame.repaint();
     }
 

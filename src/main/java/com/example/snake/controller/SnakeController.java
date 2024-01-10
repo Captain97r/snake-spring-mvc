@@ -68,6 +68,15 @@ public class SnakeController {
         snakePartList.getFirst().getRect().setLocation(x, y);
     }
 
+    public void drawSnake(Graphics2D g2d) {
+        for (SnakePart snakePart : snake.getSnakeParts()) {
+            g2d.setColor(Color.GREEN);
+            g2d.fill(snakePart.getRect());
+            g2d.setColor(Color.BLUE);
+            g2d.draw(snakePart.getRect());
+        }
+    }
+
     @Component
     public class KeyController extends KeyAdapter {
 
