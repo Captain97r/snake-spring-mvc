@@ -21,16 +21,17 @@ public class SnakeController {
     Snake snake;
     Direction direction;
 
+    int partSize_x;
+    int partSize_y;
+
     private final int START_COORDINATE_X = 300;
     private final int START_COORDINATE_Y = 300;
-    private final int SNAKE_PART_SIZE_X = 30;
-    private final int SNAKE_PART_SIZE_Y = 30;
 
     public void createSnake(int size) {
         snake = new Snake();
         direction = RIGHT;
         for (int i = 0; i < size; i++) {
-            snake.addPart(new SnakePart(new Rectangle(START_COORDINATE_X - (SNAKE_PART_SIZE_X * i), START_COORDINATE_Y, SNAKE_PART_SIZE_X, SNAKE_PART_SIZE_Y)));
+            snake.addPart(new SnakePart(new Rectangle(START_COORDINATE_X - (partSize_x * i), START_COORDINATE_Y, partSize_x, partSize_y)));
         }
     }
 
@@ -40,7 +41,7 @@ public class SnakeController {
 
         for (int i = snake.getSnakeParts().size() - 1; i > 0; i--) {
             SnakePart snakePart = new SnakePart();
-            snakePart.getRect().setSize(SNAKE_PART_SIZE_X, SNAKE_PART_SIZE_Y);
+            snakePart.getRect().setSize(partSize_x, partSize_y);
             snakePart.getRect().setLocation((int)snakePartList.get(i - 1).getRect().getX(), (int)snakePartList.get(i - 1).getRect().getY());
 
             snakePartList.set(i, snakePart);
@@ -51,16 +52,16 @@ public class SnakeController {
 
         switch(direction) {
             case UP:
-                y -= SNAKE_PART_SIZE_Y;
+                y -= partSize_y;
                 break;
             case DOWN:
-                y += SNAKE_PART_SIZE_Y;
+                y += partSize_y;
                 break;
             case RIGHT:
-                x += SNAKE_PART_SIZE_X;
+                x += partSize_x;
                 break;
             case LEFT:
-                x -= SNAKE_PART_SIZE_X;
+                x -= partSize_x;
                 break;
         }
 
