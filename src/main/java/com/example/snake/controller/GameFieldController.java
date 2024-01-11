@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 
-
+@Data
 public class GameFieldController {
 
     private final int CELL_SIZE_X = 30;
@@ -47,17 +47,21 @@ public class GameFieldController {
         foodController.drawFood(g2d);
     }
 
+    public void startGame() {
+        snakeController.createSnake(5);
+        foodController.createFood(FIELD_WIDTH_IN_CELLS, FIELD_HEIGHT_IN_CELLS);
+
+        isGameStarted  = true;
+    }
+
     @Scheduled(fixedDelay = 1000)
     void updateField() {
 
         if (!isGameStarted) {
-            snakeController.createSnake(5);
-            foodController.createFood(FIELD_WIDTH_IN_CELLS, FIELD_HEIGHT_IN_CELLS);
-            isGameStarted = true;
+            return;
         }
 
         snakeController.moveSnake();
         gameFrame.repaint();
     }
-
 }

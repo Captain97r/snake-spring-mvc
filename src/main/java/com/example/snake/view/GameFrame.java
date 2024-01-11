@@ -16,17 +16,19 @@ public class GameFrame extends JFrame {
     GamePanel gamePanel;
     public GameFrame(Consumer<Graphics2D> g2d, int width, int height) {
         gamePanel = new GamePanel(g2d);
+        gamePanel.setPreferredSize(new Dimension(width, height));
         this.add(gamePanel);
 
         this.setTitle("Snake Game");
+        this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setSize(width, height);
-        this.setVisible(true);
-        this.setLayout(null);
+//        this.setSize(width, height);
+//        this.setLayout(null);
     }
 
     public void setKeyListener(KeyListener listener) {
-        this.addKeyListener(listener);
+        this.gamePanel.addKeyListener(listener);
     }
 }

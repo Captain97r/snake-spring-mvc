@@ -19,7 +19,7 @@ public class SnakeApplication {
     }
 
     @Bean
-    public GameFieldController gameController(SnakeController snakeController, FoodController foodController, SnakeController.KeyController keyController) {
+    public GameFieldController gameFieldController(SnakeController snakeController, FoodController foodController, SnakeController.KeyController keyController) {
         return new GameFieldController(snakeController, foodController, keyController);
     }
 

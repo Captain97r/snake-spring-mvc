@@ -14,6 +14,7 @@ public class GamePanel extends JPanel {
     Consumer<Graphics2D> graphics;
     public GamePanel(Consumer<Graphics2D> g2d) {
         this.setBackground(Color.BLACK);
+        this.setFocusable(true);
         graphics = g2d;
     }
 
