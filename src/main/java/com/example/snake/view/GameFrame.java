@@ -24,8 +24,6 @@ public class GameFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         this.setResizable(false);
-//        this.setSize(width, height);
-//        this.setLayout(null);
     }
 
     public void setKeyListener(KeyListener listener) {

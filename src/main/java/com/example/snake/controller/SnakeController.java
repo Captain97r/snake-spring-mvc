@@ -1,5 +1,6 @@
 package com.example.snake.controller;
 
+import com.example.snake.controller.collision.SnakeCollisionController;
 import com.example.snake.model.Direction;
 import com.example.snake.model.Snake;
 import com.example.snake.model.SnakePart;
@@ -33,6 +34,10 @@ public class SnakeController {
         for (int i = 0; i < size; i++) {
             snake.addPart(new SnakePart(new Rectangle(START_COORDINATE_X - (partSize_x * i), START_COORDINATE_Y, partSize_x, partSize_y)));
         }
+    }
+
+    public void feedSnake() {
+        snake.addPart(new SnakePart(new Rectangle(-100, -100, partSize_x, partSize_y)));
     }
 
     public void moveSnake() {

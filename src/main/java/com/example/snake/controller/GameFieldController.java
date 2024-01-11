@@ -1,8 +1,11 @@
 package com.example.snake.controller;
 
+import com.example.snake.controller.collision.CollisionController;
+import com.example.snake.controller.collision.GameCollisionController;
 import com.example.snake.model.GameField;
 import com.example.snake.view.GameFrame;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +24,9 @@ public class GameFieldController {
     FoodController foodController;
     SnakeController.KeyController keyController;
     GameFrame gameFrame;
+
+    @Autowired
+    GameCollisionController gameCollisionController;
 
     boolean isGameStarted = false;
 
@@ -54,7 +60,7 @@ public class GameFieldController {
         isGameStarted  = true;
     }
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 100)
     void updateField() {
 
         if (!isGameStarted) {
@@ -62,6 +68,13 @@ public class GameFieldController {
         }
 
         snakeController.moveSnake();
+        gameCollisionController.refreshCollisionArea();
+
+        if (gameCollisionController.isFoodHasEaten()) {
+            snakeController.feedSnake();
+            foodController.createFood(FIELD_WIDTH_IN_CELLS, FIELD_HEIGHT_IN_CELLS);
+        }
+
         gameFrame.repaint();
     }
 }

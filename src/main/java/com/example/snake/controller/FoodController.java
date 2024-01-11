@@ -1,7 +1,9 @@
 package com.example.snake.controller;
 
+import com.example.snake.controller.collision.FoodCollisionController;
 import com.example.snake.model.Food;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
