@@ -21,4 +21,12 @@ public class Snake {
     public void addPart(SnakePart part) {
         snakeParts.add(part);
     }
+
+    public SnakePart getHead() {
+        return snakeParts.getFirst();
+    }
+
+    public List<SnakePart> getBody() {
+        return snakeParts.stream().filter(snakePart -> !snakePart.equals(getHead())).toList();
+    }
 }

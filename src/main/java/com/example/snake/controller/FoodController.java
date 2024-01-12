@@ -8,20 +8,18 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 
+import static com.example.snake.Constants.*;
+
 @Component
 @Data
 public class FoodController {
 
     Food food;
+    public void createFood() {
+        int x = (int) (Math.random() * (FIELD_WIDTH_IN_CELLS - 1));
+        int y = (int) (Math.random() * (FIELD_HEIGHT_IN_CELLS - 1));
 
-    int size_x;
-    int size_y;
-
-    public void createFood(int width, int height) {
-        int x = (int) (Math.random() * (width - 1));
-        int y = (int) (Math.random() * (height - 1));
-
-        food = new Food(x * size_x, y * size_y, size_x, size_y);
+        food = new Food(x * CELL_SIZE_X, y * CELL_SIZE_Y, CELL_SIZE_X, CELL_SIZE_Y);
     }
 
     public void drawFood(Graphics2D g2d) {

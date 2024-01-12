@@ -3,7 +3,9 @@ package com.example.snake.controller.collision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
 import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 
 @Component
 public class GameCollisionController implements CollisionController {
@@ -36,8 +38,11 @@ public class GameCollisionController implements CollisionController {
     }
 
     public boolean isFoodHasEaten() {
-        Area a = new Area(snakeCollisionController.getCollisionArea());
+        Area a = new Area(snakeCollisionController.getHeadCollisionArea());
         a.intersect(foodCollisionController.getCollisionArea());
         return !a.isEmpty();
+    }
+
+    public boolean isSnakeHasEatenItself() {
     }
 }

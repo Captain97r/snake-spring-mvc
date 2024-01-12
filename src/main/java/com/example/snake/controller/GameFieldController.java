@@ -11,13 +11,10 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 
+import static com.example.snake.Constants.*;
+
 @Data
 public class GameFieldController {
-
-    private final int CELL_SIZE_X = 30;
-    private final int CELL_SIZE_Y = 30;
-    private final int FIELD_WIDTH_IN_CELLS = 30;
-    private final int FIELD_HEIGHT_IN_CELLS = 30;
 
     GameField gameField;
     SnakeController snakeController;
@@ -29,6 +26,7 @@ public class GameFieldController {
     GameCollisionController gameCollisionController;
 
     boolean isGameStarted = false;
+    boolean isGameStopped = false;
 
     public GameFieldController(SnakeController snakeController, FoodController foodController, SnakeController.KeyController keyController) {
 
@@ -37,12 +35,6 @@ public class GameFieldController {
         this.snakeController = snakeController;
         this.foodController = foodController;
         this.keyController = keyController;
-
-        this.snakeController.setPartSize_x(CELL_SIZE_X);
-        this.snakeController.setPartSize_y(CELL_SIZE_Y);
-
-        this.foodController.setSize_x(CELL_SIZE_X);
-        this.foodController.setSize_y(CELL_SIZE_Y);
 
         gameFrame = new GameFrame(this::draw, FIELD_WIDTH_IN_CELLS * CELL_SIZE_X, FIELD_HEIGHT_IN_CELLS * CELL_SIZE_Y);
         gameFrame.setKeyListener(keyController);
@@ -55,7 +47,7 @@ public class GameFieldController {
 
     public void startGame() {
         snakeController.createSnake(5);
-        foodController.createFood(FIELD_WIDTH_IN_CELLS, FIELD_HEIGHT_IN_CELLS);
+        foodController.createFood();
 
         isGameStarted  = true;
     }
@@ -72,7 +64,11 @@ public class GameFieldController {
 
         if (gameCollisionController.isFoodHasEaten()) {
             snakeController.feedSnake();
-            foodController.createFood(FIELD_WIDTH_IN_CELLS, FIELD_HEIGHT_IN_CELLS);
+            foodController.createFood();
+        }
+
+        if (gameCollisionController.isSnakeHasEatenItself()) {
+            isGameStarted = false;
         }
 
         gameFrame.repaint();

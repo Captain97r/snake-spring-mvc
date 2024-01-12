@@ -13,6 +13,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+import static com.example.snake.Constants.CELL_SIZE_X;
+import static com.example.snake.Constants.CELL_SIZE_Y;
 import static com.example.snake.model.Direction.RIGHT;
 
 @Component
@@ -22,9 +24,6 @@ public class SnakeController {
     Snake snake;
     Direction direction;
 
-    int partSize_x;
-    int partSize_y;
-
     private final int START_COORDINATE_X = 300;
     private final int START_COORDINATE_Y = 300;
 
@@ -32,12 +31,12 @@ public class SnakeController {
         snake = new Snake();
         direction = RIGHT;
         for (int i = 0; i < size; i++) {
-            snake.addPart(new SnakePart(new Rectangle(START_COORDINATE_X - (partSize_x * i), START_COORDINATE_Y, partSize_x, partSize_y)));
+            snake.addPart(new SnakePart(new Rectangle(START_COORDINATE_X - (CELL_SIZE_X * i), START_COORDINATE_Y, CELL_SIZE_X, CELL_SIZE_Y)));
         }
     }
 
     public void feedSnake() {
-        snake.addPart(new SnakePart(new Rectangle(-100, -100, partSize_x, partSize_y)));
+        snake.addPart(new SnakePart(new Rectangle(-100, -100, CELL_SIZE_X, CELL_SIZE_Y)));
     }
 
     public void moveSnake() {
@@ -46,7 +45,7 @@ public class SnakeController {
 
         for (int i = snake.getSnakeParts().size() - 1; i > 0; i--) {
             SnakePart snakePart = new SnakePart();
-            snakePart.getRect().setSize(partSize_x, partSize_y);
+            snakePart.getRect().setSize(CELL_SIZE_X, CELL_SIZE_Y);
             snakePart.getRect().setLocation((int)snakePartList.get(i - 1).getRect().getX(), (int)snakePartList.get(i - 1).getRect().getY());
 
             snakePartList.set(i, snakePart);
@@ -57,16 +56,16 @@ public class SnakeController {
 
         switch(direction) {
             case UP:
-                y -= partSize_y;
+                y -= CELL_SIZE_Y;
                 break;
             case DOWN:
-                y += partSize_y;
+                y += CELL_SIZE_Y;
                 break;
             case RIGHT:
-                x += partSize_x;
+                x += CELL_SIZE_X;
                 break;
             case LEFT:
-                x -= partSize_x;
+                x -= CELL_SIZE_X;
                 break;
         }
 
