@@ -37,9 +37,4 @@ public class SnakeCollisionController implements CollisionController {
 
         headCollisionArea = new Area(snakeController.getSnake().getHead().getRect());
     }
-
-    public Rectangle getHeadRectangle() {
-        return snakeController.getSnake().getHead().getRect();
-    }
-
 }

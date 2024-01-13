@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -23,10 +24,10 @@ public class Snake {
     }
 
     public SnakePart getHead() {
-        return snakeParts.getFirst();
+        return snakeParts.get(0);
     }
 
     public List<SnakePart> getBody() {
-        return snakeParts.stream().filter(snakePart -> !snakePart.equals(getHead())).toList();
+        return snakeParts.stream().filter(snakePart -> snakePart != getHead()).collect(Collectors.toList());
     }
 }

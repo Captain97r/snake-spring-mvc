@@ -44,5 +44,8 @@ public class GameCollisionController implements CollisionController {
     }
 
     public boolean isSnakeHasEatenItself() {
+        Area a = new Area(snakeCollisionController.getHeadCollisionArea());
+        a.intersect(snakeCollisionController.getBodyCollisionArea());
+        return !a.isEmpty();
     }
 }

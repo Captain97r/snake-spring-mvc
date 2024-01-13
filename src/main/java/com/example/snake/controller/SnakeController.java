@@ -8,6 +8,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.xml.stream.Location;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -40,37 +41,29 @@ public class SnakeController {
     }
 
     public void moveSnake() {
-
-        List<SnakePart> snakePartList = snake.getSnakeParts();
-
         for (int i = snake.getSnakeParts().size() - 1; i > 0; i--) {
-            SnakePart snakePart = new SnakePart();
-            snakePart.getRect().setSize(CELL_SIZE_X, CELL_SIZE_Y);
-            snakePart.getRect().setLocation((int)snakePartList.get(i - 1).getRect().getX(), (int)snakePartList.get(i - 1).getRect().getY());
-
-            snakePartList.set(i, snakePart);
+            snake.getSnakeParts().get(i).getRect().setLocation(snake.getSnakeParts().get(i - 1).getRect().getLocation());
         }
 
-        int x = (int)snakePartList.getFirst().getRect().getLocation().getX();
-        int y = (int)snakePartList.getFirst().getRect().getLocation().getY();
+        Point headLocation = snake.getHead().getRect().getLocation();
 
         switch(direction) {
             case UP:
-                y -= CELL_SIZE_Y;
+                headLocation.y -= CELL_SIZE_Y;
                 break;
             case DOWN:
-                y += CELL_SIZE_Y;
+                headLocation.y += CELL_SIZE_Y;
                 break;
             case RIGHT:
-                x += CELL_SIZE_X;
+                headLocation.x += CELL_SIZE_X;
                 break;
             case LEFT:
-                x -= CELL_SIZE_X;
+                headLocation.x -= CELL_SIZE_X;
                 break;
         }
 
         // move snake head
-        snakePartList.getFirst().getRect().setLocation(x, y);
+        snake.getSnakeParts().get(0).getRect().setLocation(headLocation);
     }
 
     public void drawSnake(Graphics2D g2d) {
