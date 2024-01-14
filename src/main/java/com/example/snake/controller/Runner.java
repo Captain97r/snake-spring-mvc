@@ -8,13 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class Runner implements CommandLineRunner {
     @Autowired
-    private GameFieldController gameFieldController;
+    private GameController gameController;
 
     @Override
     public void run(String... args) throws Exception {
         java.awt.EventQueue.invokeLater(() -> {
-            gameFieldController.getGameFrame().setVisible(true);
-            gameFieldController.startGame();
+            gameController.getGameFrame().setVisible(true);
         });
     }
 }

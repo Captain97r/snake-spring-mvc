@@ -12,7 +12,10 @@ import javax.xml.stream.Location;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.snake.Constants.CELL_SIZE_X;
 import static com.example.snake.Constants.CELL_SIZE_Y;
@@ -67,7 +70,17 @@ public class SnakeController {
     }
 
     public void drawSnake(Graphics2D g2d) {
-        for (SnakePart snakePart : snake.getSnakeParts()) {
+        List<SnakePart> parts = new ArrayList<>(snake.getSnakeParts());
+        Collections.reverse(parts);
+        for (SnakePart snakePart : parts) {
+
+            if (snakePart == snake.getHead()) {
+                g2d.setColor(Color.BLUE);
+                g2d.fill(snakePart.getRect());
+                g2d.draw(snakePart.getRect());
+                continue;
+            }
+
             g2d.setColor(Color.GREEN);
             g2d.fill(snakePart.getRect());
             g2d.setColor(Color.BLUE);
