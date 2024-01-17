@@ -16,11 +16,9 @@ import static javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW;
 @Data
 public class GameController {
 
-    GameFrame gameFrame;
     @Autowired
     GameFieldController gameFieldController;
-    @Autowired
-    SnakeController.KeyController keyController;
+    GameFrame gameFrame;
 
     boolean isGameStarted = false;
 
@@ -69,28 +67,43 @@ public class GameController {
             gameFieldController.foodController.createFood();
         }
 
-        if (gameFieldController.gameCollisionController.isSnakeHasEatenItself()) {
+        if (gameFieldController.gameCollisionController.isSnakeHasEatenItself() || gameFieldController.isSnakeReachedFieldBounds()) {
+            gameFrame.openMenuPanel();
             isGameStarted = false;
         }
         gameFrame.repaint();
     }
 
     void addKeyListener() {
-        gameFrame.getGamePanel().getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "up");
-        gameFrame.getGamePanel().getActionMap().put("up", new MoveAction(1));
+        gameFrame.getGamePanel().getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('w'), "up");
+        gameFrame.getGamePanel().getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "down");
+        gameFrame.getGamePanel().getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('a'), "left");
+        gameFrame.getGamePanel().getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('d'), "right");
+
+        gameFrame.getGamePanel().getActionMap().put("up", new SnakeAction(Direction.UP));
+        gameFrame.getGamePanel().getActionMap().put("down", new SnakeAction(Direction.DOWN));
+        gameFrame.getGamePanel().getActionMap().put("left", new SnakeAction(Direction.LEFT));
+        gameFrame.getGamePanel().getActionMap().put("right", new SnakeAction(Direction.RIGHT));
     }
 
-    private class MoveAction extends AbstractAction {
+    private class SnakeAction extends AbstractAction {
 
-        int direction;
+        Direction direction;
 
-        MoveAction(int direction) {
+        SnakeAction(Direction direction) {
             this.direction = direction;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            gameFieldController.getSnakeController().setDirection(Direction.UP);
+            if ((gameFieldController.getSnakeController().getLastDirection() == Direction.RIGHT && this.direction == Direction.LEFT) ||
+                    (gameFieldController.getSnakeController().getLastDirection() == Direction.LEFT && this.direction == Direction.RIGHT) ||
+                    (gameFieldController.getSnakeController().getLastDirection() == Direction.UP && this.direction == Direction.DOWN) ||
+                    (gameFieldController.getSnakeController().getLastDirection() == Direction.DOWN && this.direction == Direction.UP))
+            {
+                return;
+            }
+            gameFieldController.getSnakeController().setDirection(direction);
         }
     }
 }

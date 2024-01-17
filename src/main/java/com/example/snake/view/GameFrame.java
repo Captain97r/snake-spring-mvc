@@ -64,6 +64,11 @@ public class GameFrame extends JFrame {
         gamePanel.setFocusable(true);
     }
 
+    public void openMenuPanel() {
+        cardLayout.show(cardPanel, "menu");
+        menuPanel.setFocusable(true);
+    }
+
     public JButton getButton() {
         return button;
     }
